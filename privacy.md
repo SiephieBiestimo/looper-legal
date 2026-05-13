@@ -20,6 +20,12 @@
   - **Feedback** — any messages you submit via the in-app feedback form,
   with your device model and OS version.
   - **Coaching messages** — questions you ask the AI caddie during rounds.
+  - **Photos sent to the AI caddie (optional)** — if you tap the camera
+  button or long-press the Ask Looper button to snap a photo of your lie,
+  the image is sent to xAI for AI processing along with your message.
+  Photos are held only in the round's chat memory and discarded when the
+  round ends; Looper does not save them on its servers or your device's
+  persistent storage.
   - **Account credentials (optional)** — if you sign in with
   email/password or Google, we receive your email address and (for Google)
    your name and profile photo.
@@ -62,7 +68,10 @@
   feedback) for analytics. Data warehoused in Canada.
   - **xAI (Grok)** — your shot context and coaching questions are sent to
   Grok to generate AI advice. Coaching messages are stored on Looper's
-  servers for up to 90 days, then deleted automatically.
+  servers for up to 90 days, then deleted automatically. If you use the
+  camera feature, the photo is sent to Grok for image-aware advice and is
+  not stored by Looper. xAI's handling of submitted prompts and images is
+  governed by their own privacy policy.
   - **Open-Meteo** — when you start a round, your selected course's
   coordinates are sent to Open-Meteo to fetch weather. No personal
   information is shared.
