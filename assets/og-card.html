@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- Source template for assets/og.png (1200x630). Regenerate with headless Edge/Chrome. -->
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@1,600&family=Libre+Baskerville:ital@1&display=swap" rel="stylesheet" />
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 1200px; height: 630px; overflow: hidden; }
+    .card {
+      width: 1200px; height: 630px; position: relative;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      background:
+        radial-gradient(120% 95% at 50% 32%, #1F5A1C 0%, #123A12 42%, #0A0A0A 100%);
+      font-family: 'Lora', Georgia, serif;
+      overflow: hidden;
+    }
+    .contour {
+      position: absolute; inset: 0;
+      background: repeating-radial-gradient(circle at 50% 34%,
+        rgba(165,200,150,0.10) 0 1px, transparent 1px 30px);
+      -webkit-mask-image: radial-gradient(60% 60% at 50% 32%, #000, transparent 75%);
+    }
+    .frame {
+      position: absolute; inset: 26px; border: 1px solid rgba(200,169,106,0.45);
+      border-radius: 10px;
+    }
+    .emblem { width: 186px; height: 186px; display: block; position: relative;
+      filter: drop-shadow(0 16px 40px rgba(0,0,0,0.55)); }
+    .rule { width: 92px; height: 2px; margin: 30px 0 22px;
+      background: linear-gradient(90deg, transparent, #C8A96A, transparent); position: relative; }
+    .wordmark { font-style: italic; font-weight: 600; font-size: 104px; color: #F5E6C8;
+      letter-spacing: .01em; line-height: 1; position: relative; }
+    .tagline { font-family: 'Libre Baskerville', Georgia, serif; font-style: italic;
+      font-size: 33px; color: #C8A96A; margin-top: 20px; position: relative; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="contour"></div>
+    <div class="frame"></div>
+    <img class="emblem" src="emblem.png" alt="" />
+    <div class="rule"></div>
+    <div class="wordmark">Looper</div>
+    <div class="tagline">Your AI caddie.</div>
+  </div>
+</body>
+</html>
