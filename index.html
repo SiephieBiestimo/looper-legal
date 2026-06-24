@@ -277,6 +277,27 @@
     </div>
   </div>
 
+  <!-- Waitlist confirmation: shown after a successful signup. -->
+  <div class="wl-modal" id="wlModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="wlModalTitle">
+    <div class="wl-modal-card" role="document">
+      <button class="wl-modal-close" id="wlModalClose" aria-label="Close">&times;</button>
+      <div class="wl-modal-mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
+      </div>
+      <span class="eyebrow">You're on the list</span>
+      <h3 id="wlModalTitle">Welcome to the clubhouse.</h3>
+      <div id="wlModalSent">
+        <p>Thanks for signing up. We've sent a confirmation to <strong id="wlModalEmail">your inbox</strong> from <strong>support@looperai.golf</strong>.</p>
+        <p class="wl-modal-spam">Don't see it in a minute? Check your <strong>spam or junk</strong> folder and mark it &ldquo;not spam&rdquo; so we can reach you the moment Looper opens.</p>
+      </div>
+      <div id="wlModalSaved" hidden>
+        <p>Thanks for signing up &mdash; your spot is saved. We'll email you from <strong>support@looperai.golf</strong> the moment Looper opens.</p>
+        <p class="wl-modal-spam">Add <strong>support@looperai.golf</strong> to your contacts so our note reaches you and doesn't land in spam.</p>
+      </div>
+      <button type="button" class="btn" id="wlModalOk">Got it</button>
+    </div>
+  </div>
+
   <script>
     (function () {
       var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -359,6 +380,37 @@
       var msg = document.getElementById('wlMsg');
       var emailInput = document.getElementById('wlEmail');
       var emailRe = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+      // Confirmation modal — shown once the signup is accepted.
+      var modal = document.getElementById('wlModal');
+      var modalEmail = document.getElementById('wlModalEmail');
+      var modalSent = document.getElementById('wlModalSent');
+      var modalSaved = document.getElementById('wlModalSaved');
+      function openModal(email, emailed) {
+        if (!modal) return;
+        if (modalEmail && email) modalEmail.textContent = email;
+        // Only promise an email if one actually went out.
+        if (modalSent) modalSent.hidden = !emailed;
+        if (modalSaved) modalSaved.hidden = !!emailed;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      }
+      function closeModal() {
+        if (!modal) return;
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      }
+      if (modal) {
+        document.getElementById('wlModalClose').addEventListener('click', closeModal);
+        document.getElementById('wlModalOk').addEventListener('click', closeModal);
+        modal.addEventListener('click', function (e) { if (e.target === modal) closeModal(); });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+        });
+      }
+
       form.addEventListener('submit', function (e) {
         e.preventDefault();
         var email = (emailInput.value || '').trim();
@@ -380,9 +432,11 @@
           return r.json().catch(function () { return { ok: r.ok }; });
         }).then(function (d) {
           if (d && d.ok) {
-            form.style.display = 'none';
-            msg.textContent = "You're on the list — we'll email you the moment Looper opens up.";
+            form.reset();
+            btn.disabled = false; btn.textContent = label;
+            msg.textContent = "You're on the list.";
             msg.className = 'wl-msg';
+            openModal(email, !!(d && d.emailed));
           } else {
             throw new Error('failed');
           }
