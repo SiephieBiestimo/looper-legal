@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Looper Account</title>
+  <meta name="robots" content="noindex" />
+  <link rel="icon" type="image/png" href="/assets/icon.png" />
+  <meta name="theme-color" content="#0C140E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,600;1,600&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root{
+      --bg:#0C140E; --card:#121C14; --field:#0E1610;
+      --border:rgba(107,143,88,0.22);
+      --cream:#F5E6C8; --sage:#A5C896; --sage-dim:#6B8F58;
+      --green-bright:#81C784; --gold:#C8A96A; --danger:#E8918C;
+      --font-head:'Lora',Georgia,serif;
+      --font-body:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      background:var(--bg); color:var(--sage); font-family:var(--font-body);
+      min-height:100vh; display:flex; align-items:center; justify-content:center;
+      padding:24px; line-height:1.6; -webkit-font-smoothing:antialiased;
+    }
+    .card{
+      width:100%; max-width:420px; background:var(--card);
+      border:1px solid var(--border); border-radius:16px; padding:38px 32px;
+      text-align:center;
+    }
+    .brand{
+      display:inline-flex; align-items:center; gap:10px; margin-bottom:8px;
+      font-family:var(--font-head); font-style:italic; font-weight:600;
+      font-size:27px; color:var(--gold);
+    }
+    .brand img{ width:42px; height:42px; border-radius:50%; }
+    .hairline{ width:48px; height:2px; border:0; margin:18px auto 24px;
+      background:linear-gradient(90deg,transparent,var(--gold),transparent); }
+    h1{ font-family:var(--font-head); color:var(--cream); font-size:22px;
+        font-weight:600; line-height:1.2; margin-bottom:12px; }
+    p{ font-size:15px; margin-bottom:8px; }
+    p.muted{ color:var(--sage-dim); font-size:13px; }
+    .email{ color:var(--cream); font-weight:600; }
+    .hint{ margin-top:18px; }
+    form{ margin-top:24px; text-align:left; }
+    label{ display:block; font-size:13px; color:var(--sage-dim); margin:14px 0 6px; }
+    input[type=password]{
+      width:100%; padding:12px 14px; background:var(--field);
+      border:1px solid var(--border); border-radius:10px; color:var(--cream);
+      font-family:var(--font-body); font-size:15px;
+    }
+    input:focus{ outline:none; border-color:var(--gold); }
+    button{
+      width:100%; margin-top:24px; padding:13px; background:var(--green-bright);
+      color:#0C140E; border:0; border-radius:999px; font-family:var(--font-body);
+      font-size:15px; font-weight:700; cursor:pointer; transition:opacity .15s;
+    }
+    button:hover{ opacity:.9; } button:disabled{ opacity:.5; cursor:default; }
+    .mark{ font-size:34px; line-height:1; margin-bottom:10px; }
+    .ok{ color:var(--green-bright); } .err{ color:var(--danger); }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <span class="brand"><img src="/assets/emblem.png" alt="" />Looper</span>
+    <hr class="hairline" />
+    <div id="content">
+      <h1>One moment…</h1>
+      <p class="muted">Checking your link.</p>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+    import { getAuth, verifyPasswordResetCode, confirmPasswordReset, applyActionCode }
+      from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+    // Public Firebase web config (apiKey is safe to ship — it identifies the
+    // project, it doesn't authenticate; the oobCode in the link is the secret).
+    const auth = getAuth(initializeApp({
+      apiKey: "AIzaSyDrpgpxzYn76va3CcqVKw3vIaysI7Kdp7s",
+      authDomain: "looper-prod.firebaseapp.com",
+      projectId: "looper-prod",
+    }));
+
+    const q = new URLSearchParams(location.search);
+    const mode = q.get("mode");
+    const code = q.get("oobCode");
+    const el = document.getElementById("content");
+    const render = (html) => { el.innerHTML = html; };
+    const fail = (title, msg) => render(
+      `<div class="mark err">&#33;</div><h1>${title}</h1><p>${msg}</p>` +
+      `<p class="muted hint">Open Looper and request a new link.</p>`);
+
+    async function run() {
+      if (!mode || !code) { fail("Invalid link", "This link is missing information."); return; }
+      try {
+        if (mode === "resetPassword") {
+          const email = await verifyPasswordResetCode(auth, code);
+          render(
+            `<h1>Set a new password</h1>` +
+            `<p>for <span class="email">${email}</span></p>` +
+            `<form id="f" novalidate>` +
+            `<label for="p1">New password</label>` +
+            `<input id="p1" type="password" autocomplete="new-password" required />` +
+            `<label for="p2">Confirm password</label>` +
+            `<input id="p2" type="password" autocomplete="new-password" required />` +
+            `<button id="b" type="submit">Reset password</button>` +
+            `<p class="muted hint" id="msg"></p></form>`);
+          document.getElementById("f").addEventListener("submit", async (e) => {
+            e.preventDefault();
+            const p1 = document.getElementById("p1").value;
+            const p2 = document.getElementById("p2").value;
+            const msg = document.getElementById("msg");
+            const btn = document.getElementById("b");
+            if (p1.length < 6) { msg.className = "err hint"; msg.textContent = "Use at least 6 characters."; return; }
+            if (p1 !== p2) { msg.className = "err hint"; msg.textContent = "Those passwords don't match."; return; }
+            btn.disabled = true; msg.className = "muted hint"; msg.textContent = "Saving…";
+            try {
+              await confirmPasswordReset(auth, code, p1);
+              render(`<div class="mark ok">&#10003;</div><h1>Password updated</h1>` +
+                `<p>You can now sign in to Looper with your new password.</p>` +
+                `<p class="muted hint">You can close this page.</p>`);
+            } catch (_) {
+              btn.disabled = false; msg.className = "err hint";
+              msg.textContent = "That link has expired. Request a new one in Looper.";
+            }
+          });
+        } else if (mode === "verifyEmail") {
+          await applyActionCode(auth, code);
+          render(`<div class="mark ok">&#10003;</div><h1>Email verified</h1>` +
+            `<p>Thanks — your email is confirmed. Head back to Looper.</p>` +
+            `<p class="muted hint">You can close this page.</p>`);
+        } else if (mode === "recoverEmail") {
+          await applyActionCode(auth, code);
+          render(`<div class="mark ok">&#10003;</div><h1>Email restored</h1>` +
+            `<p>Your sign-in email has been restored.</p>`);
+        } else {
+          fail("Unsupported link", "We couldn't process this type of link.");
+        }
+      } catch (_) {
+        fail("Link expired", "This link is invalid or has already been used.");
+      }
+    }
+    run();
+  </script>
+</body>
+</html>
