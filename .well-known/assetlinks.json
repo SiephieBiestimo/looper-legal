@@ -5,7 +5,9 @@
       "namespace": "android_app",
       "package_name": "com.zarubia.golf",
       "sha256_cert_fingerprints": [
-        "A1:FC:C5:54:71:A8:12:0F:35:ED:5D:86:5B:23:72:37:46:10:DA:FB:A9:3F:D3:B9:90:9D:A5:FB:D7:C3:37:04"
+        "A1:FC:C5:54:71:A8:12:0F:35:ED:5D:86:5B:23:72:37:46:10:DA:FB:A9:3F:D3:B9:90:9D:A5:FB:D7:C3:37:04",
+        "1C:CC:CC:5B:5B:32:AF:A6:5C:5B:EB:3A:27:A1:E8:7E:A2:53:BA:F1:4E:67:EB:95:6E:ED:8B:F8:87:F8:95:BD",
+        "CC:D3:21:CE:41:C0:84:19:A4:52:D2:27:58:03:72:F5:02:39:46:71:0F:94:A9:5E:C2:EC:DF:61:0D:D8:E3:FB"
       ]
     }
   }
