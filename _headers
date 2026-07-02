@@ -1,0 +1,6 @@
+# Cloudflare Pages custom headers.
+# The Apple App Site Association file has no extension, so Pages would serve it
+# as text/plain — iOS wants JSON. Force the content type (must be served over
+# HTTPS with no redirect for Universal Links to verify).
+/.well-known/apple-app-site-association
+  Content-Type: application/json
