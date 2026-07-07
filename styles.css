@@ -401,6 +401,76 @@ section.band .wrap { position: relative; z-index: 1; }
 .faq details[open] summary::after { content: "\2013"; }
 .faq details p { padding: 0 0 20px; color: var(--sage); }
 
+/* ---------- Beta join steps (beta.html) ---------- */
+.beta-steps { list-style: none; max-width: 780px; margin: 44px 0; display: block; }
+.beta-steps li { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 22px; }
+.beta-steps-num {
+  flex: 0 0 auto; font-family: var(--font-head); font-style: italic; font-weight: 600;
+  font-size: 26px; color: var(--gold); line-height: 1.3; width: 34px;
+}
+.beta-steps div { color: var(--sage); }
+.beta-steps strong { color: var(--cream); }
+.fine-print { color: var(--sage-dim); font-size: 14px; max-width: 780px; }
+
+/* ---------- Beta: dual-platform cards ---------- */
+.platform-grid {
+  display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
+  max-width: 900px; margin: 0 auto 30px;
+}
+@media (max-width: 760px) { .platform-grid { grid-template-columns: 1fr; } }
+.platform-card {
+  background: linear-gradient(180deg, var(--card), var(--card-2));
+  border: 1px solid var(--border); border-radius: 18px;
+  padding: 30px 28px; display: flex; flex-direction: column;
+}
+.platform-card h2 {
+  font-size: 22px; margin: 0 0 4px; padding: 0; border: 0;
+  display: flex; align-items: center; gap: 10px;
+}
+.platform-card h2 svg { width: 22px; height: 22px; fill: currentColor; }
+.platform-card .pc-sub { color: var(--sage-dim); font-size: 13px; margin: 0 0 20px; }
+.platform-card .btn { width: 100%; margin-bottom: 4px; }
+.platform-card .btn:not(.btn-block) { justify-content: center; }
+.platform-badge {
+  display: none; font-family: var(--font-body); font-size: 11px;
+  font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  color: #1f3a14; background: var(--gold); border-radius: 999px;
+  padding: 3px 11px; margin-bottom: 14px; width: fit-content;
+}
+body.is-ios .platform-card.ios .platform-badge,
+body.is-android .platform-card.android .platform-badge { display: inline-block; }
+@media (max-width: 760px) {
+  body.is-android .platform-card.android,
+  body.is-ios .platform-card.ios { order: -1; }
+}
+.pc-steps { list-style: none; margin: 4px 0 0; padding: 0; }
+.pc-steps li {
+  display: flex; gap: 13px; align-items: flex-start; margin-bottom: 14px;
+  font-size: 14.5px; color: var(--sage); line-height: 1.5;
+}
+.pc-steps .n {
+  flex: 0 0 auto; font-family: var(--font-head); font-style: italic;
+  font-weight: 600; font-size: 18px; color: var(--gold); width: 18px;
+}
+.pc-steps strong { color: var(--cream); }
+.pc-steps a { word-break: break-word; }
+.pc-note {
+  font-size: 12.5px; color: var(--sage-dim); line-height: 1.5;
+  margin-top: auto; padding-top: 16px;
+}
+.pc-actions { display: flex; flex-direction: column; gap: 11px; margin: 2px 0 4px; }
+.btn-block {
+  display: flex; align-items: center; gap: 10px; width: 100%;
+  justify-content: flex-start;
+}
+.btn-block .bn {
+  flex: 0 0 auto; width: 22px; height: 22px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  background: rgba(31, 58, 20, 0.28); color: #1f3a14;
+  font-family: var(--font-head); font-style: italic; font-weight: 700;
+  font-size: 14px;
+}
+
 .contact-card {
   background: linear-gradient(180deg, var(--card), var(--card-2));
   border: 1px solid var(--border); border-radius: 18px;

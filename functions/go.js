@@ -1,0 +1,31 @@
+// Cloudflare Pages Function — GET /go
+// Device-aware entry point for the beta QR code. The printed QR encodes
+// looperai.golf/go so a single scan routes each phone to the least-friction
+// path its platform allows:
+//   • iPhone  -> straight to the TestFlight invite (skips the landing page).
+//               TestFlight is Apple's mandatory gateway, so a tester who
+//               doesn't have it yet still gets Apple's "install TestFlight
+//               first" screen — that's Apple's, not ours.
+//   • Everyone else (Android, iPad, desktop) -> the /beta landing page, which
+//               explains the platform-specific steps. Android's closed-test
+//               join (group + opt-in) can't be automated per Google's consent
+//               rules, so it needs the page's guidance.
+//
+// /beta itself never redirects — it stays a plain, viewable page for anyone
+// who sees or shares that link directly.
+
+const TESTFLIGHT_URL = 'https://testflight.apple.com/join/bSM9FeWF';
+
+export async function onRequestGet(context) {
+  const ua = context.request.headers.get('user-agent') || '';
+  // Only clear iPhone/iPod hits deep-link to TestFlight. Modern iPadOS reports
+  // a desktop-Safari UA, so iPads fall through to /beta — fine, the page still
+  // offers the TestFlight button.
+  const isIPhone = /iPhone|iPod/i.test(ua);
+
+  const dest = isIPhone
+    ? TESTFLIGHT_URL
+    : new URL('/beta', context.request.url).toString();
+
+  return Response.redirect(dest, 302);
+}
