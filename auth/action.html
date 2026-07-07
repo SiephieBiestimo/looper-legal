@@ -77,10 +77,12 @@
     import { getAuth, verifyPasswordResetCode, confirmPasswordReset, applyActionCode }
       from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
 
-    // Public Firebase web config (apiKey is safe to ship — it identifies the
-    // project, it doesn't authenticate; the oobCode in the link is the secret).
+    // Public Firebase web config. This is the project's dedicated "Browser key"
+    // (not the Android key), restricted to looperai.golf HTTP referrers in GCP.
+    // apiKey is safe to ship — it identifies the project, it doesn't
+    // authenticate; the oobCode in the link is the secret.
     const auth = getAuth(initializeApp({
-      apiKey: "AIzaSyDrpgpxzYn76va3CcqVKw3vIaysI7Kdp7s",
+      apiKey: "AIzaSyCuPNw_71wyr5DTY0gzGaOoe3MKPLyw7Ww",
       authDomain: "looper-prod.firebaseapp.com",
       projectId: "looper-prod",
     }));
