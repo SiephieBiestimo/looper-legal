@@ -401,6 +401,15 @@ section.band .wrap { position: relative; z-index: 1; }
 .faq details[open] summary::after { content: "\2013"; }
 .faq details p { padding: 0 0 20px; color: var(--sage); }
 
+.beta-perk {
+  display: inline-block;
+  font-size: 14px; color: var(--sage);
+  background: var(--gold-soft); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 16px;
+  margin-top: 18px;
+}
+.beta-perk strong { color: var(--cream); }
+
 /* ---------- Beta join steps (beta.html) ---------- */
 .beta-steps { list-style: none; max-width: 780px; margin: 44px 0; display: block; }
 .beta-steps li { display: flex; gap: 20px; align-items: flex-start; margin-bottom: 22px; }
