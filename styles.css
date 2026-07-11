@@ -421,6 +421,26 @@ section.band .wrap { position: relative; z-index: 1; }
 .beta-steps strong { color: var(--cream); }
 .fine-print { color: var(--sage-dim); font-size: 14px; max-width: 780px; }
 
+/* ---------- Beta: in-app-browser escape hatch ----------
+   Facebook/Instagram/etc. open links in an embedded webview. Google blocks
+   sign-in in those, so the Google-Groups join step is impossible. Detect it
+   (body.is-inapp, set in beta.html) and push the user to a real browser. */
+.iab-warn {
+  display: none;
+  max-width: 900px; margin: 0 auto 26px;
+  background: var(--gold-soft);
+  border: 1px solid var(--gold);
+  border-radius: 16px;
+  padding: 20px 22px;
+  color: var(--cream);
+  font-size: 15.5px; line-height: 1.55;
+}
+body.is-inapp .iab-warn { display: block; }
+.iab-warn p { margin: 0 0 8px; }
+.iab-warn strong { color: var(--gold); }
+.iab-warn .iab-hint { color: var(--sage); font-size: 14.5px; }
+.iab-warn .btn { margin-top: 10px; }
+
 /* ---------- Beta: dual-platform cards ---------- */
 .platform-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 22px;

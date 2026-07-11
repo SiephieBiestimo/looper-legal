@@ -40,6 +40,15 @@
   <section class="legal">
     <div class="wrap">
 
+      <!-- Shown only inside in-app browsers (Facebook/Instagram/etc). Google
+           blocks sign-in in embedded webviews, so joining the tester group is
+           impossible here -- push the user out to a real browser. -->
+      <div class="iab-warn" role="alert">
+        <p><strong>Open this page in your browser first.</strong> You're viewing this inside an app's built-in browser, and Google blocks sign-in here &mdash; so joining the Android tester group won't work.</p>
+        <p class="iab-hint">Tap the <strong>&#8942;</strong> menu (top right) and choose <em>Open in browser</em> &mdash; or use the button below.</p>
+        <a class="btn" id="iab-escape" href="https://looperai.golf/beta">Open in browser</a>
+      </div>
+
       <div class="platform-grid">
 
         <!-- iPhone -->
@@ -133,6 +142,26 @@
       var isAndroid = /Android/.test(ua);
       if (isIOS) document.body.classList.add('is-ios');
       else if (isAndroid) document.body.classList.add('is-android');
+
+      // In-app browsers (Facebook, Instagram, etc.) run an embedded webview.
+      // Google blocks sign-in in those, which makes the Google-Groups join step
+      // impossible -- so surface a banner pushing the user to a real browser.
+      var isInApp =
+        /FBAN|FBAV|FB_IAB|FBIOS|Instagram|Line\/|Snapchat|TikTok|Pinterest/i.test(ua) ||
+        /\bTwitter|LinkedInApp|MicroMessenger/i.test(ua) ||
+        (isAndroid && /;\s*wv\)/i.test(ua));               // generic Android webview
+
+      if (isInApp) {
+        document.body.classList.add('is-inapp');
+        // On Android an intent:// URL hands the page to Chrome directly.
+        if (isAndroid) {
+          var esc = document.getElementById('iab-escape');
+          if (esc) {
+            esc.setAttribute('href',
+              'intent://looperai.golf/beta#Intent;scheme=https;package=com.android.chrome;end');
+          }
+        }
+      }
     })();
   </script>
 
