@@ -6,15 +6,16 @@
 //               TestFlight is Apple's mandatory gateway, so a tester who
 //               doesn't have it yet still gets Apple's "install TestFlight
 //               first" screen — that's Apple's, not ours.
-//   • Everyone else (Android, iPad, desktop) -> the /beta landing page, which
-//               explains the platform-specific steps. Android's closed-test
-//               join (group + opt-in) can't be automated per Google's consent
-//               rules, so it needs the page's guidance.
+//   • Android -> straight to the Play Store listing (open testing — install
+//               is one tap, no tester group or opt-in step).
+//   • Everyone else (iPad, desktop) -> the /beta landing page, which explains
+//               the platform-specific steps.
 //
 // /beta itself never redirects — it stays a plain, viewable page for anyone
 // who sees or shares that link directly.
 
 const TESTFLIGHT_URL = 'https://testflight.apple.com/join/bSM9FeWF';
+const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=com.zarubia.golf';
 
 export async function onRequestGet(context) {
   const ua = context.request.headers.get('user-agent') || '';
@@ -22,10 +23,16 @@ export async function onRequestGet(context) {
   // a desktop-Safari UA, so iPads fall through to /beta — fine, the page still
   // offers the TestFlight button.
   const isIPhone = /iPhone|iPod/i.test(ua);
+  const isAndroid = /Android/i.test(ua);
 
-  const dest = isIPhone
-    ? TESTFLIGHT_URL
-    : new URL('/beta', context.request.url).toString();
+  let dest;
+  if (isIPhone) {
+    dest = TESTFLIGHT_URL;
+  } else if (isAndroid) {
+    dest = PLAY_STORE_URL;
+  } else {
+    dest = new URL('/beta', context.request.url).toString();
+  }
 
   return Response.redirect(dest, 302);
 }

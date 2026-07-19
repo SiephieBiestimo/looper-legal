@@ -14,7 +14,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Libre+Baskerville:ital@0;1&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="styles.css?v=2" />
 </head>
 <body>
 
@@ -40,11 +40,11 @@
   <section class="legal">
     <div class="wrap">
 
-      <!-- Shown only inside in-app browsers (Facebook/Instagram/etc). Google
-           blocks sign-in in embedded webviews, so joining the tester group is
-           impossible here -- push the user out to a real browser. -->
+      <!-- Shown only inside in-app browsers (Facebook/Instagram/etc). Embedded
+           webviews often fail to hand off to Google Play or TestFlight -- push
+           the user out to a real browser. -->
       <div class="iab-warn" role="alert">
-        <p><strong>Open this page in your browser first.</strong> You're viewing this inside an app's built-in browser, and Google blocks sign-in here &mdash; so joining the Android tester group won't work.</p>
+        <p><strong>Open this page in your browser first.</strong> You're viewing this inside an app's built-in browser, which can block the Google Play and TestFlight links below.</p>
         <p class="iab-hint">Tap the <strong>&#8942;</strong> menu (top right) and choose <em>Open in browser</em> &mdash; or use the button below.</p>
         <a class="btn" id="iab-escape" href="https://looperai.golf/beta">Open in browser</a>
       </div>
@@ -74,12 +74,11 @@
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24a11.43 11.43 0 0 0-8.94 0L5.65 5.67c-.19-.29-.57-.38-.87-.2-.28.18-.37.54-.22.83L6.4 9.48A10.78 10.78 0 0 0 1 18h22a10.78 10.78 0 0 0-5.4-8.52zM7 15.25a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5zm10 0a1.25 1.25 0 1 1 0-2.5 1.25 1.25 0 0 1 0 2.5z"/></svg>
             Android
           </h2>
-          <p class="pc-sub">Two steps, in order &mdash; use the same Google account for both.</p>
+          <p class="pc-sub">One step &mdash; installs straight from Google Play.</p>
           <div class="pc-actions">
-            <a class="btn btn-block" href="https://groups.google.com/g/looper-beta"><span class="bn">1</span>Join the tester group</a>
-            <a class="btn btn-block" href="https://play.google.com/apps/testing/com.zarubia.golf"><span class="bn">2</span>Get it on Google Play</a>
+            <a class="btn btn-block" href="https://play.google.com/store/apps/details?id=com.zarubia.golf">Get it on Google Play</a>
           </div>
-          <p class="pc-note"><strong>You must be signed in to Google.</strong> If the group page shows a <em>Sign in</em> button, tap that first &mdash; the <em>Join group</em> button only appears once you're signed in. Then on Google Play, tap <em>Become a tester</em> and <em>Download</em>. After joining, it can take a few minutes for Google Play to show the app.</p>
+          <p class="pc-note">Tap <em>Install</em> on Google Play and you're in the beta &mdash; updates arrive automatically like any other app.</p>
         </div>
 
       </div>

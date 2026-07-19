@@ -445,6 +445,7 @@ body.is-inapp .iab-warn { display: block; }
 .platform-grid {
   display: grid; grid-template-columns: 1fr 1fr; gap: 22px;
   max-width: 900px; margin: 0 auto 30px;
+  align-items: start; /* cards size to their own content — the Android card is much shorter than the iPhone one */
 }
 @media (max-width: 760px) { .platform-grid { grid-template-columns: 1fr; } }
 .platform-card {
