@@ -33,7 +33,7 @@
         <a href="#features" class="hide-sm">Features</a>
         <a href="#how" class="hide-sm">How it works</a>
         <a href="support.html">Support</a>
-        <a href="#get" class="nav-cta">Get the app</a>
+        <a href="beta.html" class="nav-cta">Join the beta</a>
       </nav>
     </div>
   </header>
@@ -53,14 +53,14 @@
           knows your game.
         </p>
         <div class="cta-row">
-          <span class="store-badge">
+          <a class="store-badge" href="beta.html">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.05 12.04c-.02-2.27 1.85-3.36 1.94-3.41-1.06-1.55-2.71-1.76-3.29-1.78-1.4-.14-2.73.82-3.44.82-.71 0-1.8-.8-2.96-.78-1.52.02-2.93.88-3.71 2.24-1.58 2.74-.4 6.8 1.13 9.02.75 1.09 1.65 2.31 2.82 2.27 1.13-.05 1.56-.73 2.93-.73 1.36 0 1.75.73 2.95.71 1.22-.02 1.99-1.11 2.74-2.21.86-1.27 1.22-2.5 1.24-2.56-.03-.01-2.38-.91-2.4-3.62zM14.8 5.18c.62-.76 1.05-1.8.93-2.85-.9.04-2 .6-2.65 1.35-.58.67-1.09 1.74-.95 2.76 1.01.08 2.04-.51 2.67-1.26z"/></svg>
-            <span class="sb-text"><span class="sb-top">Coming soon</span><span class="sb-main">App Store</span></span>
-          </span>
-          <span class="store-badge">
+            <span class="sb-text"><span class="sb-top">Free beta</span><span class="sb-main">App Store</span></span>
+          </a>
+          <a class="store-badge" href="beta.html">
             <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3.6 2.3c-.3.3-.5.7-.5 1.3v16.8c0 .6.2 1 .5 1.3l.1.1L13 12.1v-.2L3.7 2.2l-.1.1zm12.9 13.2l-3.1-3.1L4.6 21.5l11.9-6zM4.6 2.5l8.8 9 3.1-3.1L4.6 2.5zm13 6.7l-2.6 1.5 2.8 2.8 2.7-1.5c.8-.5.8-1.3 0-1.8l-2.9-1z"/></svg>
-            <span class="sb-text"><span class="sb-top">Coming soon</span><span class="sb-main">Google Play</span></span>
-          </span>
+            <span class="sb-text"><span class="sb-top">Free beta</span><span class="sb-main">Google Play</span></span>
+          </a>
         </div>
       </div>
 
@@ -219,13 +219,13 @@
   <section class="band cta-band" id="get">
     <div class="contour"></div>
     <div class="wrap reveal">
-      <span class="eyebrow">Join the waitlist</span>
+      <span class="eyebrow">Request beta access</span>
       <h2>Be first on the course.</h2>
-      <p>Looper opens to a limited group first. Leave your email and we'll tell you the moment your spot is ready &mdash; no spam, just the green light.</p>
+      <p>Looper is in open beta on iPhone and Android. Leave your email and we'll hand you the link &mdash; it's free, and the first 100 founding testers keep Pro for as long as we offer Looper.</p>
       <form class="waitlist" id="waitlist" action="/api/subscribe" method="post" novalidate>
         <input type="email" id="wlEmail" name="email" placeholder="you@email.com" autocomplete="email" required aria-label="Email address" />
         <input type="text" name="company" class="wl-hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-        <button type="submit" class="btn">Notify me</button>
+        <button type="submit" class="btn">Request access</button>
       </form>
       <p class="wl-msg" id="wlMsg" role="status" aria-live="polite"></p>
       <p class="wl-fine">Prefer to chat? <a href="mailto:support@looperai.golf">Email us</a>.</p>
@@ -277,24 +277,29 @@
     </div>
   </div>
 
-  <!-- Waitlist confirmation: shown after a successful signup. -->
+  <!-- Beta-access confirmation: shown after a successful signup. Reveals the
+       beta link immediately rather than making the email the only way in —
+       a welcome email that lands in Promotions would otherwise lose the user
+       at the exact moment their intent is highest. -->
   <div class="wl-modal" id="wlModal" aria-hidden="true" role="dialog" aria-modal="true" aria-labelledby="wlModalTitle">
     <div class="wl-modal-card" role="document">
       <button class="wl-modal-close" id="wlModalClose" aria-label="Close">&times;</button>
       <div class="wl-modal-mark" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5" /></svg>
       </div>
-      <span class="eyebrow">You're on the list</span>
+      <span class="eyebrow">You're in</span>
       <h3 id="wlModalTitle">Welcome to the clubhouse.</h3>
+      <p>Your spot is confirmed. Looper runs on iPhone and Android &mdash; the beta page has the two-minute version.</p>
       <div id="wlModalSent">
-        <p>Thanks for signing up. We've sent a confirmation to <strong id="wlModalEmail">your inbox</strong> from <strong>support@looperai.golf</strong>.</p>
-        <p class="wl-modal-spam">Don't see it in a minute? Check your <strong>spam or junk</strong> folder and mark it &ldquo;not spam&rdquo; so we can reach you the moment Looper opens.</p>
+        <p class="wl-modal-spam">We've emailed the link to <strong id="wlModalEmail">your inbox</strong> as well, so you can pick it up on the phone you actually golf with.</p>
       </div>
       <div id="wlModalSaved" hidden>
-        <p>Thanks for signing up &mdash; your spot is saved. We'll email you from <strong>support@looperai.golf</strong> the moment Looper opens.</p>
-        <p class="wl-modal-spam">Add <strong>support@looperai.golf</strong> to your contacts so our note reaches you and doesn't land in spam.</p>
+        <p class="wl-modal-spam">Open <strong>looperai.golf/beta</strong> on your phone when you're ready to install.</p>
       </div>
-      <button type="button" class="btn" id="wlModalOk">Got it</button>
+      <div class="wl-modal-actions">
+        <a class="btn" href="beta.html">Join the beta</a>
+        <button type="button" class="btn btn-ghost" id="wlModalOk">Maybe later</button>
+      </div>
     </div>
   </div>
 
@@ -434,7 +439,7 @@
           if (d && d.ok) {
             form.reset();
             btn.disabled = false; btn.textContent = label;
-            msg.textContent = "You're on the list.";
+            msg.textContent = "You're in.";
             msg.className = 'wl-msg';
             openModal(email, !!(d && d.emailed));
           } else {

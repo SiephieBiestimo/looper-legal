@@ -175,6 +175,8 @@ img { max-width: 100%; display: block; }
   display: inline-flex; align-items: center; gap: 10px;
   background: var(--card); border: 1px solid var(--border);
   border-radius: 14px; padding: 11px 16px;
+  text-decoration: none;
+  transition: border-color .2s ease, background .2s ease;
 }
 .store-badge:hover { border-color: var(--gold); background: var(--card-2); }
 .store-badge svg { width: 26px; height: 26px; flex-shrink: 0; color: var(--cream); }
@@ -656,6 +658,10 @@ body.is-android .platform-card.android .platform-badge { display: inline-block; 
   border-radius: 12px; padding: 12px 16px;
 }
 .wl-modal .btn { margin-top: 8px; }
+/* Stacked so the beta link reads as the primary action and the dismiss
+   sits under it, rather than the two competing side by side. */
+.wl-modal-actions { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.wl-modal-actions .btn { justify-content: center; margin-top: 0; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
